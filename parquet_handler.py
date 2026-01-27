@@ -19,7 +19,6 @@ artists_db = "spotify_clean_parquet/artists.parquet"
 artist_genre_db = "spotify_clean_parquet/artist_genres.parquet"
 artist_albums_db = "spotify_clean_parquet/artist_albums.parquet"
 albums_db = "spotify_clean_parquet/albums.parquet"
-tracks_sq = "spotify_clean_parquet/anna/spotify_clean.sqlite3/spotify_clean.sqlite3"
 
 
 class Handler:
