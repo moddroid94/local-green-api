@@ -33,6 +33,16 @@ Headers are ignored, market availability too and all the href/link fields are mi
 (only 1 track at a time, but with multi-track response schema)
 - Get Albums
 - Get Artist
+- Search*
+
+<br>
+
+*allowed query types are:
+
+`track` with query filters:
+`artist:`
+`album:`
+`isrc:`
 
 
 
@@ -311,6 +321,108 @@ Headers are ignored, market availability too and all the href/link fields are mi
     "total": 72765
   },
   "popularity": 52
+}
+```
+</details>
+<br>
+<details>
+
+<summary>Search</summary>
+
+### Request: ```http://127.0.0.1:8000/search?q=Crank%20-%20Kasra%20album:Resonance%20&type=track&limit=1```
+
+### Response:
+```json 
+{
+  "track": {
+    "href": "",
+    "limit": 1,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 1,
+    "items": [
+      {
+        "rowid": 9329915,
+        "album_rowid": 762445,
+        "album": {
+          "rowid": 762445,
+          "id": "1vqbno1uvn9oBuE6nPD5MR",
+          "name": "The Resonance V",
+          "type": "album",
+          "album_type": "album",
+          "popularity": 11,
+          "release_date": "2023-02-17",
+          "release_date_precision": "day",
+          "total_tracks": 15,
+          "artists": [
+            {
+              "rowid": 2968258,
+              "id": "4YWj8sohRDjL9deiuRvEEY",
+              "name": "Noisia",
+              "type": "artist",
+              "genres": [],
+              "followers": {
+                "href": null,
+                "total": 283349
+              },
+              "popularity": 50
+            },
+            {
+              "rowid": 3902266,
+              "id": "3W1ubrHvNSMltB1l7zo6xt",
+              "name": "Kasra",
+              "type": "artist",
+              "genres": [],
+              "followers": {
+                "href": null,
+                "total": 19665
+              },
+              "popularity": 34
+            }
+          ]
+        },
+        "artists": [
+          {
+            "rowid": 2968258,
+            "id": "4YWj8sohRDjL9deiuRvEEY",
+            "name": "Noisia",
+            "type": "artist",
+            "genres": [],
+            "followers": {
+              "href": null,
+              "total": 283349
+            },
+            "popularity": 50
+          },
+          {
+            "rowid": 3902266,
+            "id": "3W1ubrHvNSMltB1l7zo6xt",
+            "name": "Kasra",
+            "type": "artist",
+            "genres": [],
+            "followers": {
+              "href": null,
+              "total": 19665
+            },
+            "popularity": 34
+          }
+        ],
+        "id": "16Ek7OlxiIipZ59CYT3vVG",
+        "name": "Crank - Kasra Remix",
+        "type": "track",
+        "explicit": 0,
+        "external_ids": {
+          "isrc": "UKU932390011"
+        },
+        "popularity": 5,
+        "duration_ms": 248372,
+        "disc_number": 1,
+        "track_number": 10,
+        "is_playable": true
+      }
+    ]
+  }
 }
 ```
 </details>
