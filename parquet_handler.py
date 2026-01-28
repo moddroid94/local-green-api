@@ -265,7 +265,7 @@ class Handler:
 
         return self.artist_df_to_ArtistObject(artistRow)
 
-    def _search_tack_type(
+    def _search_track_type(
         self,
         db,
         base_query,
@@ -346,7 +346,7 @@ class Handler:
         match search_type:
             case "track":
                 db = tracks_db
-                trackObjectDict = self._search_tack_type(
+                trackObjectDict = self._search_track_type(
                     db,
                     base_query,
                     track_filter,
