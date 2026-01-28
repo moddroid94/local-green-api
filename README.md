@@ -4,7 +4,7 @@
 This project is not affiliated with, endorsed by, or connected to Spotify AB or any other music streaming service. This is independent open-source software that provides API infrastructure for querying music metadata databases.
 
 ## Warning
-This repository does not include any databases or copyrighted data. You must obtain the SQLite databases separately. This project only provides the API server code to query existing databases.
+This repository does not include any databases or copyrighted data. You must obtain the .parquet databases separately. This project only provides the API server code to query existing databases.
 
 The author(s) of this project are not responsible for how you obtain or use the underlying data. Users are solely responsible for ensuring their use of any databases complies with applicable laws and terms of service. This software is provided "as is" without warranty of any kind.
 
