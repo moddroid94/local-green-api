@@ -8,9 +8,9 @@ You can find it here: https://www.kaggle.com/datasets/lordpatil/spotify-metadata
 
 Given the very low space needed I decided to try and emulate the responses of the Spotify API to leverage the already built integrations for metadata in tools like Beets or Picard.
 
-Result: It worked quite well, apart from artworks, the most important infos are available and retrieved correctly, and the only change needed is the url that the integration points to.
+Result: It worked quite well, apart from artworks, the most important infos are available and retrieved correctly, the only changes being the API url and an auth bypass.
 
-### This is still a rough demo, it **mostly** follows the specs but some fields are completely missing, so it may not work correctly with all the integrations yet.
+### This is still a rough demo, it **mostly** follows the specs but most methods are missing, so it may not work correctly with all the integrations yet.
 
 
 
@@ -26,25 +26,26 @@ The project is managed using uv, more at [installation](https://docs.astral.sh/u
 
 #### Ps: the routes are **not** prefixed with /v1/ like spotify API.
 
-Headers are ignored, market availability too and all the href/link fields are missing.
+Headers are ignored, market availability too.
 
 ## Supported Methods
-- Get Several Tracks 
-(only 1 track at a time, but with multi-track response schema)
-- Get Albums
-- Get Artist
-- Search*
+- Get Several Tracks<sup>1</sup> (Return Spec Compliant)
+- Get Albums (Full Spec Compliant)
+- Get Artist (Full Spec Compliant)
+- Search<sup>2</sup> (Return Spec Compliant)
 
 <br>
+1) Only 1 track at a time, but with multi-track response schema
 
-*allowed query types are:
+<br>
+2) Allowed query types are:
 
-`track` with query filters:
+- `track` with query filters:
 `artist:`
 `album:`
 `isrc:`
 
-
+<br>
 
 ## Example Request-Response
 <details>
@@ -61,6 +62,10 @@ Headers are ignored, market availability too and all the href/link fields are mi
   "name": "Pivot (Camo & Krooked Remix) / Sinkhole (Skeptical Remix)",
   "type": "album",
   "tracks": {
+    "href": "https://api.spotify.com/v1/albums/3EncU2oR8VzeuWvLKPIEQd/tracks",
+    "next": null,
+    "total": 2,
+    "previous": null,
     "items": [
       {
         "rowid": 9368406,
@@ -76,7 +81,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 72765
             },
-            "popularity": 52
+            "popularity": 52,
+            "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+            "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+            }
           },
           {
             "rowid": 4929842,
@@ -88,12 +98,23 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 237761
             },
-            "popularity": 54
+            "popularity": 54,
+            "href": "https://api.spotify.com/v1/artists/2N8IPNZTiNo3nj4mreOlHU",
+            "uri": "spotify:artist:2N8IPNZTiNo3nj4mreOlHU",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/2N8IPNZTiNo3nj4mreOlHU"
+            }
           }
         ],
         "id": "5w5Yy1iT2oAHMHi0ecFGRV",
         "name": "Pivot - Camo & Krooked Remix",
         "type": "track",
+        "external_url": {
+          "spotify": "https://open.spotify.com/track/5w5Yy1iT2oAHMHi0ecFGRV"
+        },
+        "href": "https://api.spotify.com/v1/tracks/5w5Yy1iT2oAHMHi0ecFGRV",
+        "uri": "spotify:track:5w5Yy1iT2oAHMHi0ecFGRV",
+        "preview_url": null,
         "explicit": 0,
         "external_ids": {
           "isrc": "UKACT1830493"
@@ -117,7 +138,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 72765
             },
-            "popularity": 52
+            "popularity": 52,
+            "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+            "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+            }
           },
           {
             "rowid": 5138393,
@@ -129,12 +155,23 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 26163
             },
-            "popularity": 37
+            "popularity": 37,
+            "href": "https://api.spotify.com/v1/artists/28ee6rnxMl8AqwcroPfivP",
+            "uri": "spotify:artist:28ee6rnxMl8AqwcroPfivP",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/28ee6rnxMl8AqwcroPfivP"
+            }
           }
         ],
         "id": "4pQp4qcip75nJACmwsDstb",
         "name": "Sinkhole - Skeptical Remix",
         "type": "track",
+        "external_url": {
+          "spotify": "https://open.spotify.com/track/4pQp4qcip75nJACmwsDstb"
+        },
+        "href": "https://api.spotify.com/v1/tracks/4pQp4qcip75nJACmwsDstb",
+        "uri": "spotify:track:4pQp4qcip75nJACmwsDstb",
+        "preview_url": null,
         "explicit": 0,
         "external_ids": {
           "isrc": "UKACT1830494"
@@ -150,6 +187,11 @@ Headers are ignored, market availability too and all the href/link fields are mi
   "external_ids": {
     "upc": "5057272089689"
   },
+  "external_url": {
+    "spotify": "https://open.spotify.com/album/3EncU2oR8VzeuWvLKPIEQd"
+  },
+  "href": "https://api.spotify.com/v1/albums/3EncU2oR8VzeuWvLKPIEQd",
+  "uri": "spotify:album:3EncU2oR8VzeuWvLKPIEQd",
   "copyrights": [
     {
       "text": "2018 Vision Recordings",
@@ -160,6 +202,8 @@ Headers are ignored, market availability too and all the href/link fields are mi
       "type": "P"
     }
   ],
+  "images": [],
+  "genres": [],
   "label": "Vision Recordings",
   "popularity": 7,
   "release_date": "2018-11-02",
@@ -176,7 +220,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
         "href": null,
         "total": 72765
       },
-      "popularity": 52
+      "popularity": 52,
+      "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+      "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+      "external_url": {
+        "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+      }
     },
     {
       "rowid": 4929842,
@@ -188,7 +237,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
         "href": null,
         "total": 237761
       },
-      "popularity": 54
+      "popularity": 54,
+      "href": "https://api.spotify.com/v1/artists/2N8IPNZTiNo3nj4mreOlHU",
+      "uri": "spotify:artist:2N8IPNZTiNo3nj4mreOlHU",
+      "external_url": {
+        "spotify": "https://open.spotify.com/artist/2N8IPNZTiNo3nj4mreOlHU"
+      }
     },
     {
       "rowid": 5138393,
@@ -200,7 +254,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
         "href": null,
         "total": 26163
       },
-      "popularity": 37
+      "popularity": 37,
+      "href": "https://api.spotify.com/v1/artists/28ee6rnxMl8AqwcroPfivP",
+      "uri": "spotify:artist:28ee6rnxMl8AqwcroPfivP",
+      "external_url": {
+        "spotify": "https://open.spotify.com/artist/28ee6rnxMl8AqwcroPfivP"
+      }
     }
   ]
 }
@@ -224,9 +283,6 @@ Headers are ignored, market availability too and all the href/link fields are mi
         "name": "Pivot (Camo & Krooked Remix) / Sinkhole (Skeptical Remix)",
         "type": "album",
         "album_type": "single",
-        "external_id_upc": "5057272089689",
-        "copyright_c": "2018 Vision Recordings",
-        "label": "Vision Recordings",
         "popularity": 7,
         "release_date": "2018-11-02",
         "release_date_precision": "day",
@@ -242,7 +298,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 72765
             },
-            "popularity": 52
+            "popularity": 52,
+            "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+            "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+            }
           },
           {
             "rowid": 5138393,
@@ -254,9 +315,20 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 26163
             },
-            "popularity": 37
+            "popularity": 37,
+            "href": "https://api.spotify.com/v1/artists/28ee6rnxMl8AqwcroPfivP",
+            "uri": "spotify:artist:28ee6rnxMl8AqwcroPfivP",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/28ee6rnxMl8AqwcroPfivP"
+            }
           }
-        ]
+        ],
+        "external_url": {
+          "spotify": "https://open.spotify.com/album/3EncU2oR8VzeuWvLKPIEQd"
+        },
+        "href": "https://api.spotify.com/v1/albums/3EncU2oR8VzeuWvLKPIEQd",
+        "uri": "spotify:album:3EncU2oR8VzeuWvLKPIEQd",
+        "images": []
       },
       "artists": [
         {
@@ -269,7 +341,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
             "href": null,
             "total": 72765
           },
-          "popularity": 52
+          "popularity": 52,
+          "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+          "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+          "external_url": {
+            "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+          }
         },
         {
           "rowid": 5138393,
@@ -281,12 +358,23 @@ Headers are ignored, market availability too and all the href/link fields are mi
             "href": null,
             "total": 26163
           },
-          "popularity": 37
+          "popularity": 37,
+          "href": "https://api.spotify.com/v1/artists/28ee6rnxMl8AqwcroPfivP",
+          "uri": "spotify:artist:28ee6rnxMl8AqwcroPfivP",
+          "external_url": {
+            "spotify": "https://open.spotify.com/artist/28ee6rnxMl8AqwcroPfivP"
+          }
         }
       ],
       "id": "4pQp4qcip75nJACmwsDstb",
       "name": "Sinkhole - Skeptical Remix",
       "type": "track",
+      "external_url": {
+        "spotify": "https://open.spotify.com/track/4pQp4qcip75nJACmwsDstb"
+      },
+      "href": "https://api.spotify.com/v1/tracks/4pQp4qcip75nJACmwsDstb",
+      "uri": "spotify:track:4pQp4qcip75nJACmwsDstb",
+      "preview_url": null,
       "explicit": 0,
       "external_ids": {
         "isrc": "UKACT1830494"
@@ -320,7 +408,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
     "href": null,
     "total": 72765
   },
-  "popularity": 52
+  "popularity": 52,
+  "href": "https://api.spotify.com/v1/artists/54qqaSH6byJIb8eFWxe3Pj",
+  "uri": "spotify:artist:54qqaSH6byJIb8eFWxe3Pj",
+  "external_url": {
+    "spotify": "https://open.spotify.com/artist/54qqaSH6byJIb8eFWxe3Pj"
+  }
 }
 ```
 </details>
@@ -366,7 +459,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
                 "href": null,
                 "total": 283349
               },
-              "popularity": 50
+              "popularity": 50,
+              "href": "https://api.spotify.com/v1/artists/4YWj8sohRDjL9deiuRvEEY",
+              "uri": "spotify:artist:4YWj8sohRDjL9deiuRvEEY",
+              "external_url": {
+                "spotify": "https://open.spotify.com/artist/4YWj8sohRDjL9deiuRvEEY"
+              }
             },
             {
               "rowid": 3902266,
@@ -378,9 +476,20 @@ Headers are ignored, market availability too and all the href/link fields are mi
                 "href": null,
                 "total": 19665
               },
-              "popularity": 34
+              "popularity": 34,
+              "href": "https://api.spotify.com/v1/artists/3W1ubrHvNSMltB1l7zo6xt",
+              "uri": "spotify:artist:3W1ubrHvNSMltB1l7zo6xt",
+              "external_url": {
+                "spotify": "https://open.spotify.com/artist/3W1ubrHvNSMltB1l7zo6xt"
+              }
             }
-          ]
+          ],
+          "external_url": {
+            "spotify": "https://open.spotify.com/album/1vqbno1uvn9oBuE6nPD5MR"
+          },
+          "href": "https://api.spotify.com/v1/albums/1vqbno1uvn9oBuE6nPD5MR",
+          "uri": "spotify:album:1vqbno1uvn9oBuE6nPD5MR",
+          "images": []
         },
         "artists": [
           {
@@ -393,7 +502,12 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 283349
             },
-            "popularity": 50
+            "popularity": 50,
+            "href": "https://api.spotify.com/v1/artists/4YWj8sohRDjL9deiuRvEEY",
+            "uri": "spotify:artist:4YWj8sohRDjL9deiuRvEEY",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/4YWj8sohRDjL9deiuRvEEY"
+            }
           },
           {
             "rowid": 3902266,
@@ -405,12 +519,23 @@ Headers are ignored, market availability too and all the href/link fields are mi
               "href": null,
               "total": 19665
             },
-            "popularity": 34
+            "popularity": 34,
+            "href": "https://api.spotify.com/v1/artists/3W1ubrHvNSMltB1l7zo6xt",
+            "uri": "spotify:artist:3W1ubrHvNSMltB1l7zo6xt",
+            "external_url": {
+              "spotify": "https://open.spotify.com/artist/3W1ubrHvNSMltB1l7zo6xt"
+            }
           }
         ],
         "id": "16Ek7OlxiIipZ59CYT3vVG",
         "name": "Crank - Kasra Remix",
         "type": "track",
+        "external_url": {
+          "spotify": "https://open.spotify.com/track/16Ek7OlxiIipZ59CYT3vVG"
+        },
+        "href": "https://api.spotify.com/v1/tracks/16Ek7OlxiIipZ59CYT3vVG",
+        "uri": "spotify:track:16Ek7OlxiIipZ59CYT3vVG",
+        "preview_url": null,
         "explicit": 0,
         "external_ids": {
           "isrc": "UKU932390011"

@@ -53,6 +53,12 @@ class Handler:
             "release_date_precision": album.release_date_precision.values.tolist()[0],
             "total_tracks": album.total_tracks.values.tolist()[0],
             "artists": artist,
+            "external_url": {
+                "spotify": f"https://open.spotify.com/album/{album.id.values.tolist()[0]}"
+            },
+            "href": f"https://api.spotify.com/v1/albums/{album.id.values.tolist()[0]}",
+            "uri": f"spotify:album:{album.id.values.tolist()[0]}",
+            "images": [],
         }
 
     def artist_df_to_ArtistObject(self, artist):
@@ -67,23 +73,11 @@ class Handler:
                 "total": artist.followers_total.values.tolist()[0],
             },
             "popularity": artist.popularity.values.tolist()[0],
-        }
-
-    def track_df_to_SimplifiedTrack(self, track):
-        return {
-            "rowid": track.rowid.values.tolist()[0],
-            "album_rowid": track.album_rowid.values.tolist()[0],
-            "album": {},
-            "artists": [],
-            "id": track.id.values.tolist()[0],
-            "name": track.name.values.tolist()[0],
-            "type": "track",
-            "explicit": track.explicit.values.tolist()[0],
-            "external_ids": {"isrc": track.external_id_isrc.values.tolist()[0]},
-            "popularity": track.popularity.values.tolist()[0],
-            "duration_ms": track.duration_ms.values.tolist()[0],
-            "disc_number": track.disc_number.values.tolist()[0],
-            "track_number": track.track_number.values.tolist()[0],
+            "href": f"https://api.spotify.com/v1/artists/{artist.id.values.tolist()[0]}",
+            "uri": f"spotify:artist:{artist.id.values.tolist()[0]}",
+            "external_url": {
+                "spotify": f"https://open.spotify.com/artist/{artist.id.values.tolist()[0]}"
+            },
         }
 
     def track_df_to_TrackObject(self, track, album, artist):
@@ -93,6 +87,12 @@ class Handler:
             "id": track.id.values.tolist()[0],
             "name": track.name.values.tolist()[0],
             "type": "track",
+            "external_url": {
+                "spotify": f"https://open.spotify.com/track/{track.id.values.tolist()[0]}"
+            },
+            "href": f"https://api.spotify.com/v1/tracks/{track.id.values.tolist()[0]}",
+            "uri": f"spotify:track:{track.id.values.tolist()[0]}",
+            "preview_url": None,
             "explicit": track.explicit.values.tolist()[0],
             "external_ids": {"isrc": track.external_id_isrc.values.tolist()[0]},
             "popularity": track.popularity.values.tolist()[0],
@@ -108,13 +108,26 @@ class Handler:
             "id": album.id.values.tolist()[0],
             "name": album.name.values.tolist()[0],
             "type": "album",
-            "tracks": {"items": tracks},
+            "tracks": {
+                "href": f"https://api.spotify.com/v1/albums/{album.id.values.tolist()[0]}/tracks",
+                "next": None,
+                "total": len(tracks),
+                "previous": None,
+                "items": tracks,
+            },
             "album_type": album.album_type.values.tolist()[0],
             "external_ids": {"upc": album.external_id_upc.values.tolist()[0]},
+            "external_url": {
+                "spotify": f"https://open.spotify.com/album/{album.id.values.tolist()[0]}"
+            },
+            "href": f"https://api.spotify.com/v1/albums/{album.id.values.tolist()[0]}",
+            "uri": f"spotify:album:{album.id.values.tolist()[0]}",
             "copyrights": [
                 {"text": album.copyright_c.values.tolist()[0], "type": "C"},
                 {"text": album.copyright_p.values.tolist()[0], "type": "P"},
             ],
+            "images": [],
+            "genres": [],  # for compatibility, is always null.
             "label": album.label.values.tolist()[0],
             "popularity": album.popularity.values.tolist()[0],
             "release_date": album.release_date.values.tolist()[0],
@@ -131,6 +144,10 @@ class Handler:
             "id": track.id,
             "name": track.name,
             "type": "track",
+            "external_url": {"spotify": f"https://open.spotify.com/track/{track.id}"},
+            "href": f"https://api.spotify.com/v1/tracks/{track.id}",
+            "uri": f"spotify:track:{track.id}",
+            "preview_url": None,
             "explicit": track.explicit,
             "external_ids": {"isrc": track.external_id_isrc},
             "popularity": track.popularity,
@@ -148,6 +165,10 @@ class Handler:
             "id": track.id,
             "name": track.name,
             "type": "track",
+            "external_url": {"spotify": f"https://open.spotify.com/track/{track.id}"},
+            "href": f"https://api.spotify.com/v1/tracks/{track.id}",
+            "uri": f"spotify:track:{track.id}",
+            "preview_url": None,
             "explicit": track.explicit,
             "external_ids": {"isrc": track.external_id_isrc},
             "popularity": track.popularity,
